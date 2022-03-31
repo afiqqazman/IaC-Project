@@ -56,8 +56,11 @@ Resources:
       SecurityGroups: !Ref ServerSecurityGroup
       KeyName: !Ref KeyName
     Metadata:
-      Instance:
-        Description: "Single EC2 server for testing purpose"
+      'AWS::CloudFormation::Init':
+        configSets:
+          wordpress_install:
+            - install_cfn
+            - install_wordpress
   IPAddress:
     Type: 'AWS::EC2::EIP'
   IpAssoc:
