@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description:
+  S3 for Static Web Host
+Parameters:
+  BucketName:
+    Type: String
+    Default: simples3site
+    Description: Name of Bucket
+Resources:
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Ref BucketName
+    WebsiteConfiguration:
+      IndexDocument: index.html
+    DeletionPolicy: Retain
+Output:
+  WebsiteURL:
+    Value:
+      !GetAtt [
+        "WebsiteBucket", "WebsiteURL"
+      ]
+    Description: URL for the Website
